@@ -102,7 +102,7 @@ function HeaderLinks({ ...props }) {
             target="_blank"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-instagram"} />
+            <i className={classes.icons + " fas fa-shopping-cart"} />
           </Button>
         </Tooltip>
       </ListItem>
