@@ -1,13 +1,10 @@
 import React from "react";
 //Redux
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { latestProductsFetch } from '../../../redux/actions';
 
-//Lodash
-import _ from 'lodash';
-
 import TextTruncate from 'react-text-truncate';
-
 
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -25,66 +22,34 @@ import "slick-carousel/slick/slick-theme.css";
 // @material-ui/icons
 
 // core components
-import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
 import Button from "../../../components/Button";
 import Card from "../../../components/Card/Card";
 import CardBody from "../../../components/Card/CardBody";
 import CardFooter from "../../../components/Card/CardFooter";
+import { Refresh } from '@material-ui/icons';
 
 import compose from 'recompose/compose';
 import teamStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/teamStyle.jsx";
-//import carouselStyle from "../../../assets/jss/material-kit-react/views/componentsSections/carouselStyle.jsx";
-
-
-function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "circle", background: "black", fontColor: "black" }}
-        onClick={onClick}
-      />
-    );
-  }
-  
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "red" }}
-        onClick={onClick}
-      />
-    );
-  }
-
 
 class LatestProducts extends React.Component {
   
   componentWillMount() {
         this.props.latestProductsFetch();
     }
-    
-  handleProductClick(product){
-    console.log(product)
-    
-  }
-    
+
   productsItems (products, classes, imageClasses) {
-    console.log(products)
     if (products.products === undefined) {
      //console.log("Indefinido")
     } else{
-      //console.log(products.count)
       return (
-        products.products.map((product) => {
+        products.products.map((product, key) => {
           return (
               <ButtonBase
-                  //className={props.classes.cardAction}
-                  onClick={() => { this.handleProductClick(product)}}
+                  component={Link} 
+                  to={"/product/" + product.id}
+                  key={key}
               >
-                
                 <Card plain >
                   <CardBody>
                   <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
@@ -117,14 +82,9 @@ class LatestProducts extends React.Component {
     }
   }
   
-  
-  
   render() {
     const { classes } = this.props;
     const imageClasses = classNames(
-      //classes.imgRaised,
-      //classes.imgRoundedCircle,
-      //classes.imgFluid,
       classes.imgCardTop
     );
     const settings = { 
@@ -161,7 +121,8 @@ class LatestProducts extends React.Component {
         }
       ]
     };
-    if (this.props.productsList.isFetching){
+    //console.log(this.props)
+    if (this.props.isFetching){
         return (
             <div className={classes.section}>
               <h2 className={classes.title}>Latest Products</h2>
@@ -171,30 +132,31 @@ class LatestProducts extends React.Component {
             </div>
         )
     }
-    // if (this.props.productsList.error){
-    //     return (
-    //         <Container>
-    //             <Content contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
-    //                 <Text>Hay un error</Text>
-    //             </Content>
-    //         </Container>
-    //     );
-    // }
+    if (this.props.error){
+        return (
+            <div className={classes.section}>
+              <h2 className={classes.title}>Latest Products</h2>
+              <div>
+                <p style={{ color: "black" }}>Oh no! Hay un problema</p>
+                <Button 
+                  color="primary"
+                  className={classes.button}
+                  onClick={()=>{this.props.latestProductsFetch()}}
+              >
+                  <Refresh style={{fontSize: 50}} />
+              </Button>
+              </div> 
+            </div>
+        );
+    }
     
     return (
       <div className={classes.section}>
         <h2 className={classes.title}>Latest Products</h2>
         <div>
-
-                <Slider {...settings}>
-          
-            
-                  {this.productsItems(this.props.productsList, classes, imageClasses)}
-        
-            
-                </Slider>
-
-            
+          <Slider {...settings}>
+            {this.productsItems(this.props.products, classes, imageClasses)}
+          </Slider>
         </div>
       </div>
     );
@@ -202,18 +164,9 @@ class LatestProducts extends React.Component {
 }
 
 const mapStateToProps = state => {
-    
-    //console.log(state)
-    if (state.productsList.products) {
-        const productsList = state.productsList.products;
-        //console.log(productsList);
-        return { productsList };
-    }
-
-    return state;
+    return state.productsList;
 };
 
-//export default withStyles(teamStyle)(LatestProducts);
 export default compose(
   withStyles(teamStyle),
   connect(mapStateToProps, { latestProductsFetch })

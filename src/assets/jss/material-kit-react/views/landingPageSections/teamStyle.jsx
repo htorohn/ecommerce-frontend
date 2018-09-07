@@ -41,7 +41,11 @@ const teamStyle = {
   },
   margin5: {
     margin: "5px"
-  }
+  },
+
+  input: {
+    display: 'none',
+  },
 };
 
 export default teamStyle;
