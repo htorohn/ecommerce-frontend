@@ -21,3 +21,6 @@ export const CREATING_ORDER_ERROR = 'creating_order_error'
 export const TAXONOMIES_FETCHING = 'taxonomies_fetching'
 export const TAXONOMIES_FETCH_SUCCESS = 'taxonomies_fetch_success'
 export const TAXONOMIES_FETCH_ERROR = 'taxonomies_fetch_error'
+
+//Product Image 
+export const SET_MAIN_IMAGE = 'set_main_image'
