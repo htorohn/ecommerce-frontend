@@ -1,82 +1,94 @@
-import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
+import {
+  Button,
+  Container,
+  Header,
+  Icon,
+  Menu,
+  Segment,
+  Visibility,
+} from 'semantic-ui-react'
+import LatestProducts from './Sections/LatestProducts'
+import FixedMenu from '../Common/FixedMenu'
+import Footer from '../Common/Footer'
 
-// core components
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import GridContainer from "../../components/Grid/GridContainer";
-import GridItem from "../../components/Grid/GridItem";
-import Button from "../../components/Button";
-import HeaderLinks from "../../components/Header/HeaderLinks";
-import Parallax from "../../components/Parallax";
+export default class HomepageLayout extends Component {
+  state = {}
 
-import landingPageStyle from "../../assets/jss/material-kit-react/views/landingPage.jsx";
+  hideFixedMenu = () => this.setState({ visible: false })
+  showFixedMenu = () => this.setState({ visible: true })
 
-// Sections for this page
-//import ProductSection from "./Sections/ProductSection.jsx";
-import LatestProducts from "./Sections/LatestProducts";
-//import WorkSection from "./Sections/WorkSection.jsx";
-
-
-const dashboardRoutes = [];
-
-class LandingPage extends React.Component {
   render() {
-    const { classes, ...rest } = this.props;
+    const { visible } = this.state
+    //console.log(this.props.location.pathname)
     return (
+
       <div>
-        <Header
-          color="transparent"
-          routes={dashboardRoutes}
-          brand="Material Kit React"
-          rightLinks={<HeaderLinks />}
-          fixed
-          changeColorOnScroll={{
-            height: 400,
-            color: "white"
-          }}
-          {...rest}
-        />
+        { visible ? <FixedMenu /> : null }
 
-        <Parallax filter image={require("../../assets/img/hero-image.jpg")}>
-          <div className={classes.container}>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={6}>
-                <h1 className={classes.title}>Your Story Starts With Us.</h1>
-                <h4>
-                  Every landing page needs a small description after the big
-                  bold title, that's why we added this text here. Add here all
-                  the information that can make you or your product create the
-                  first impression.
-                </h4>
-                <br />
-                <Button
-                  color="danger"
-                  size="lg"
-                  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fas fa-play" />Watch video
-                </Button>
-              </GridItem>
-            </GridContainer>
-          </div>
-        </Parallax>
-        
-        <div className={classNames(classes.main, classes.mainRaised)}>
-          <div className={classes.container}>
-            <LatestProducts />
-          </div>
-        </div>
+        <Visibility
+          onBottomPassed={this.showFixedMenu}
+          onBottomVisible={this.hideFixedMenu}
+          once={false}
+        >
+          <Segment
+            inverted
+            textAlign='center'
+            style={{ 
+                minHeight: 700, 
+                padding: '1em 0em', 
+                backgroundImage: "url('/images/hero-image.jpg')", 
+                backgroundSize: "cover", 
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"  
+            }}
+            vertical
+            
+          >
+
+            <Container>
+              <Menu stackable inverted pointing secondary size='large' style={{ border: 0 }}>
+                <Menu.Item active>
+                  <NavLink to="/" exact activeClassName="active">Home</NavLink>
+                </Menu.Item>
+                <Menu.Item>
+                  <NavLink to="/events" activeClassName="active">Events</NavLink>
+                </Menu.Item>
+                <Menu.Item position='right'>
+                  <Button as='a' inverted>Log in</Button>
+                  <Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>
+                </Menu.Item>
+              </Menu>
+            </Container>
+
+            <Container text>
+              <Header
+                as='h1'
+                content='Sports Events'
+                inverted
+                style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '3em' }}
+              />
+              <Header
+                as='h2'
+                content='Do whatever you want when you want to.'
+                inverted
+                style={{ fontSize: '1.7em', fontWeight: 'normal' }}
+              />
+              <Button primary size='huge'>
+                Get Started
+                <Icon name='right arrow' />
+              </Button>
+            </Container>
+          </Segment>
+        </Visibility>
+
+        <Segment style={{ padding: '8em 2em' }} textAlign='center' vertical>
+          <LatestProducts />
+        </Segment>
+
         <Footer />
-
       </div>
-    );
+    )
   }
 }
-
-export default withStyles(landingPageStyle)(LandingPage);

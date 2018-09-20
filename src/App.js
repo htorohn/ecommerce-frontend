@@ -5,7 +5,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import HomePage from "./views/HomePage/HomePage"
 import ProductDetail from "./views/Products/ProductDetail"
 
-//var hist = createBrowserHistory();
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import "./assets/css/react-slick.css"
 
 class App extends Component {
   render() {

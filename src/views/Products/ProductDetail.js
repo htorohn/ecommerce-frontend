@@ -1,67 +1,86 @@
-import React from "react"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-// nodejs library that concatenates classes
-import classNames from "classnames"
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles"
-// core components
-import Header from "../../components/Header/Header"
-import Footer from "../../components/Footer/Footer"
-//import GridContainer from "../../components/Grid/GridContainer"
-//import GridItem from "../../components/Grid/GridItem"
-import HeaderLinks from "../../components/Header/HeaderLinks"
-import Parallax from "../../components/Parallax"
+import {
+    Segment,
+    Dimmer,
+    Loader,
+    Button,
+    Icon,
+} from 'semantic-ui-react'
 
-import landingPageStyle from "../../assets/jss/material-kit-react/views/landingPage.jsx"
-
-// Sections for this page
-import MainProduct from "./Sections/MainProduct"
+import Header from '../Common/Header'
+import Footer from '../Common/Footer'
+import MainProduct from './Sections/MainProduct'
+import { getProduct } from '../../redux/actions'
 
 
-const dashboardRoutes = []
-
-class ProductDetail extends React.Component {
-  
-  
-  
-  render() {
-    const { classes, ...rest } = this.props;
-    //console.log(this.props)
-    return (
-      <div>
-        <Header
-          color="transparent"
-          routes={dashboardRoutes}
-          brand="Material Kit React"
-          rightLinks={<HeaderLinks />}
-          fixed
-          changeColorOnScroll={{
-            height: 400,
-            color: "white"
-          }}
-          {...rest}
-        />
-
-        <Parallax xsmall filter image={require("../../assets/img/hero-image.jpg")}>
-          {/*<div className={classes.container}>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={6}>
-                <h1 className={classes.title}>{current_product.name}</h1>
-              </GridItem>
-            </GridContainer>
-          </div>*/}
-        </Parallax>
+class ProductDetail extends Component {
+    componentWillMount() {
+        //console.log(this.props)
+        this.props.getProduct(this.props.match.params.id)
+    }
+    
+    
+    render(){
+        //console.log("props", this.props)
+                //Cuando esta cargando mostramos un Loader
+        if (this.props.productsList.productFetching){
+            return (
+                <div>
+                    <Header />
+                    <Segment style={{ padding: '8em 2em' }} textAlign='center' vertical>
+                        <Dimmer active inverted>
+                            <Loader size='big' inverted>Loading</Loader>
+                        </Dimmer>
+                    </Segment>
+                    <Footer />
+                </div>
+            )
+        }
         
-        <div className={classNames(classes.main, classes.mainRaised)}>
-          <div className={classes.container}>
-            <MainProduct id={this.props.match.params.id}/>
-          </div>
-        </div>
-        <Footer />
+        //Si no se cargo el producto, mostramos un error
+        if (this.props.productsList.productError){
+            return (
+                <div>
+                    <Header />
+                        <Segment style={{ padding: '8em 2em' }} textAlign='center' vertical>
+                            <h2>Latest Products</h2>
+                            <div>
+                                <p style={{ color: "black" }}>Oh no! Hay un problema</p>
+                                <Button 
+                                  color="primary"
+                                  icon
+                                  onClick={()=>{this.props.getProduct(this.props.match.params.id)}}
+                                  
+                                >
+                                <Icon name="refresh" textAlign='center'/>
+                                </Button>
+                            </div> 
+                        </Segment>
+                    <Footer />
+                </div>
+            )
+        }
+        
+        
+        return (
+            <div>
+                <Header />
+                <Segment style={{ padding: '8em 2em' }} textAlign='center' vertical>
+                    <MainProduct current_product={this.props.productsList.current_product}/>
+                </Segment>
+                <Footer />
+            </div>
+        )
+    }
+} 
 
-      </div>
-    );
-  }
+const mapStateToProps = state => {
+    //console.log("state", state)
+    const { productsList } = state
+    //return { current_product }
+    return { productsList }
 }
 
-export default withStyles(landingPageStyle)(ProductDetail);
+export default connect(mapStateToProps, { getProduct})(ProductDetail)
