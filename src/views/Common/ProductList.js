@@ -17,7 +17,7 @@ const productsItems =  (products) => {
       return (
         products.products.map((product, key) => {
           return (
-              <Container href={"/product/" + product.id}>
+              <Container href={"/product/" + product.slug}>
                 <Image src={product.master.images[0].product_url} centered wrapped style={{height: 250}}/>
                 <Header>
                   <h4>

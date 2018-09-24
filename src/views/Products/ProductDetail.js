@@ -7,11 +7,15 @@ import {
     Loader,
     Button,
     Icon,
+    Divider,
+    Container
 } from 'semantic-ui-react'
 
 import Header from '../Common/Header'
 import Footer from '../Common/Footer'
+import PageBreadcrumb from '../Common/PageBreadcrumb'
 import MainProduct from './Sections/MainProduct'
+import RelatedProducts from './Sections/RelatedProducts'
 import { getProduct } from '../../redux/actions'
 
 
@@ -63,13 +67,20 @@ class ProductDetail extends Component {
             )
         }
         
-        
+        const { current_product } = this.props.productsList
+        console.log("current product", current_product)
+        console.log("taxonomies", this.props.taxonomies)
         return (
             <div>
                 <Header />
-                <Segment style={{ padding: '8em 2em' }} textAlign='center' vertical>
-                    <MainProduct current_product={this.props.productsList.current_product}/>
-                </Segment>
+                <Container style={{ padding: '2em 2em' }} textAlign='center' vertical>
+                    <PageBreadcrumb textAlign='left'/>
+                    <Divider style={{ padding: '3em 0em' }} />
+                    <MainProduct current_product={current_product}/>
+                    <Divider style={{ padding: '3em 0em' }} horizontal>Productos Relacionados</Divider>
+                    <RelatedProducts taxonId={current_product.taxon_ids[0]} />
+                </Container>
+                
                 <Footer />
             </div>
         )
@@ -78,9 +89,9 @@ class ProductDetail extends Component {
 
 const mapStateToProps = state => {
     //console.log("state", state)
-    const { productsList } = state
+    const { productsList, taxonomies } = state
     //return { current_product }
-    return { productsList }
+    return { productsList, taxonomies }
 }
 
 export default connect(mapStateToProps, { getProduct})(ProductDetail)

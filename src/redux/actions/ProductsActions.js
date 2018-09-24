@@ -45,3 +45,22 @@ export const getProduct = (id) => {
             })
     }
 }
+
+export const getTaxonProducts = (taxonId) => {
+    return (dispatch) => {
+        dispatch({ type: PRODUCTS_FETCHING });
+        //console.log(`${MAIN_URL}/api/v1/products`)
+        var request = require('superagent')
+        request
+            .get(`${MAIN_URL}/api/v1/taxons/products?id=${taxonId}`)
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-origin', '*')
+            .then ((response) => {
+                dispatch({ type: PRODUCTS_FETCH_SUCCESS, payload: response.body });
+            })
+            .catch ((error) => {
+                console.log(error);
+                dispatch({ type: PRODUCTS_FETCH_ERROR, payload: error})
+            })
+    }
+}

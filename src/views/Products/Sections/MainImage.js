@@ -9,9 +9,10 @@ function MainImage({...props}) {
             {...{
                 smallImage: {
                     isFluidWidth: false,
-                    src: props.image.product_url,
-                    width: 240,// (required)
-                    height: 240// (required)
+                    src: props.image.large_url,
+                    //imageClassName: 'wrapped',
+                    width: 350,// (required)
+                    height: 350// (required)
                 },
                 largeImage: {
                     src: props.image.large_url,
