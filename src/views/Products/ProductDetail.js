@@ -80,7 +80,6 @@ class ProductDetail extends Component {
                     <Divider style={{ padding: '3em 0em' }} horizontal>Productos Relacionados</Divider>
                     <RelatedProducts taxonId={current_product.taxon_ids[0]} />
                 </Container>
-                
                 <Footer />
             </div>
         )

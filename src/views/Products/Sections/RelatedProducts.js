@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import {Dimmer, Loader, Container} from 'semantic-ui-react'
 import { getTaxonProducts } from '../../../redux/actions'
 import ProductList from '../../Common/ProductList'
 

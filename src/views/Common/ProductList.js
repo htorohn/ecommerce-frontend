@@ -77,7 +77,7 @@ const ProductList = ({products}) => {
         }
       ]
     };
-    console.log("props", products)
+    //console.log("props", products)
     return (
         <Slider {...settings}>
             {productsItems(products)}

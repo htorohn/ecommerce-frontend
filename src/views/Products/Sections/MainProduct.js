@@ -101,7 +101,7 @@ class MainProduct extends Component {
         if (taxons.length > 0){
             taxonLabels = taxons.map ((taxon) => {
                 return (
-                    <Label as='a' color='teal' tag>
+                    <Label as='a' href={'/shop/' + taxon.permalink} color='teal' tag>
                         {taxon.name}
                     </Label>
                 )
