@@ -197,7 +197,7 @@ class MainProduct extends Component {
                                     </Grid>
                                     <Grid style={{textAlign: 'left'}}>
                                         <Grid.Column>
-                                            <h2>{current_product.name}</h2>
+                                            {/*<h2>{current_product.name}</h2>*/}
                                             <h3>{current_product.display_price}</h3>
                                         </Grid.Column>
                                     </Grid>

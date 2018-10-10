@@ -51,7 +51,8 @@ class Shop extends React.Component {
              <div>
                 <Header />
                 <Container style={{ padding: '2em 2em' }} textAlign='center' vertical>
-                    <PageBreadcrumb textAlign='left'/>
+                    {/*<PageBreadcrumb textAlign='left'/>*/}
+                    <h1 style={{textAlign: 'left'}}>{current_taxon.name}</h1>
                     <Divider style={{ padding: '3em 0em' }} />
                     
                     <Grid container columns={2} stackable>
@@ -59,6 +60,8 @@ class Shop extends React.Component {
                             <TaxonomiesMenu activePermalink={this.props.match.params.taxon}/>
                         </Grid.Column>
                         <Grid.Column width={13}>
+                            
+                            <br /><br />
                             <ProductGrid current_taxon_id={current_taxon.id} />
                         </Grid.Column>
                     </Grid>   

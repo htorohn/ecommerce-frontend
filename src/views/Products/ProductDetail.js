@@ -74,7 +74,8 @@ class ProductDetail extends Component {
             <div>
                 <Header />
                 <Container style={{ padding: '2em 2em' }} textAlign='center' vertical>
-                    <PageBreadcrumb textAlign='left'/>
+                    {/*<PageBreadcrumb textAlign='left'/>*/}
+                    <h1 style={{textAlign: 'left'}}>{current_product.name}</h1>
                     <Divider style={{ padding: '3em 0em' }} />
                     <MainProduct current_product={current_product}/>
                     <Divider style={{ padding: '3em 0em' }} horizontal>Productos Relacionados</Divider>

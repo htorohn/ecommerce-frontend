@@ -8,11 +8,11 @@ function MainImage({...props}) {
         <ReactImageMagnify
             {...{
                 smallImage: {
-                    isFluidWidth: false,
+                    isFluidWidth: true,
                     src: props.image.large_url,
                     //imageClassName: 'wrapped',
-                    width: 350,// (required)
-                    height: 350// (required)
+                    //width: 350,// (required)
+                    //height: 350// (required)
                 },
                 largeImage: {
                     src: props.image.large_url,
