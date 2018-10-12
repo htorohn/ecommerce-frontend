@@ -23,7 +23,8 @@ class ProductImages extends Component {
                         fluid
                             src={image.product_url}
                             centered
-                            onClick={() => this.props.setMainImage(image)}
+                            //onClick={() => this.props.setMainImage(image)}
+                            onMouseOver={() => this.props.setMainImage(image)}
                         />
                     </Container>
                 )
