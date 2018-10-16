@@ -10,6 +10,7 @@ import {
   Visibility,
 } from 'semantic-ui-react'
 import LatestProducts from './Sections/LatestProducts'
+import CategoriesHome from './Sections/CategoriesHome'
 import FixedMenu from '../Common/FixedMenu'
 import Footer from '../Common/Footer'
 
@@ -82,7 +83,10 @@ export default class HomepageLayout extends Component {
             </Container>
           </Segment>
         </Visibility>
-
+        
+        <Segment style={{ padding: '8em 2em' }} textAlign='center' vertical>
+          <CategoriesHome />
+        </Segment>
         <Segment style={{ padding: '8em 2em' }} textAlign='center' vertical>
           <LatestProducts />
         </Segment>

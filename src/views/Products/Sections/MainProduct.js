@@ -13,11 +13,12 @@ import {
     List,
     ListItem,
     Accordion,
-    Header
+    Header,
+    Loader
 } from 'semantic-ui-react'
 import NumericInput from 'react-numeric-input'
 
-import { setMainImage } from '../../../redux/actions'
+import { setMainImage, addProductToCart } from '../../../redux/actions'
 import ProductImages from './ProductImages'
 
 
@@ -27,7 +28,7 @@ class MainProduct extends Component {
         this.state = {
           current_variant: 0,
           qty: 1,
-          activeIndex: -1
+          activeIndex: 0
           //addToCart: true
         };
     }
@@ -48,6 +49,23 @@ class MainProduct extends Component {
         this.setState({ activeIndex: newIndex })
     }
 
+
+    handleButtonPress(variant) {
+        let line_item = {
+            variant_id: variant.id,
+            quantity: this.state.qty
+        }
+        this.props.addProductToCart({line_item})
+            .then (() => {
+                //alert("Producto Agregado!")
+                // Toast.show({
+                //     text: "Producto Agregado!",
+                //     buttonText: "Ok",
+                //     duration: 2000
+                //   })
+                console.log("Producto Agregado")
+            })
+    }
     
     addToCart(variant, quantity) {
         console.log("variant", variant)
@@ -212,12 +230,23 @@ class MainProduct extends Component {
                                     </Grid>
                                     <Grid style={{textAlign: 'left'}}>
                                         <Grid.Column>
-                                            <Button 
+                                            {/*<Button 
                                                 icon='shop'
                                                 content='Agregar al Carrito'
                                                 primary
                                                 disabled={disabled}
                                                 onClick={() => this.addToCart(selected_variant, this.state.qty)}
+                                            />*/}
+                                            <Button 
+                                                primary
+                                                icon='shop'
+                                                content='Agregar al Carrito'
+                                                style={ {marginLeft: 5, marginRight: 5} }
+                                                disabled={ selected_variant.total_on_hand === 0?true:false }//|| this.props.state.cart.addingProductToCart?true:false }
+                                                onClick={() => {
+                                                    this.handleButtonPress(selected_variant);
+                                                  }}
+                                                loading={this.props.cart.addingProductToCart?true:false}
                                             />
                                         </Grid.Column>
                                     </Grid>
@@ -247,8 +276,8 @@ class MainProduct extends Component {
 }
 
 const mapStateToProps = state => {
-    const { productImage } = state
-    return { productImage }
+    const { productImage, cart } = state
+    return { productImage, cart }
 }
 
-export default connect(mapStateToProps, { setMainImage })(MainProduct)
+export default connect(mapStateToProps, { setMainImage, addProductToCart })(MainProduct)

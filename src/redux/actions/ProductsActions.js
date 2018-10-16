@@ -46,13 +46,15 @@ export const getProduct = (id) => {
     }
 }
 
-export const getTaxonProducts = (taxonId) => {
+export const getTaxonProducts = (taxonId, per_page = 25) => {
     return (dispatch) => {
         dispatch({ type: PRODUCTS_FETCHING });
         //console.log(`${MAIN_URL}/api/v1/products`)
         var request = require('superagent')
         request
-            .get(`${MAIN_URL}/api/v1/taxons/products?id=${taxonId}`)
+            .get(`${MAIN_URL}/api/v1/taxons/products`)
+            .query({id: taxonId})
+            .query({per_page: per_page})
             .set('Content-Type', 'application/json')
             .set('Access-Control-Allow-origin', '*')
             .then ((response) => {

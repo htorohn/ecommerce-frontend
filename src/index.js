@@ -9,11 +9,26 @@ import reducers from './redux/reducers'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import 'semantic-ui-css/semantic.min.css'
+import persistDataLocally from './middleware/persist-data-locally'
 //import "./assets/scss/material-kit-react.css?v=1.2.0";
+
+
+
+let retrievedState
+try {
+  retrievedState = localStorage.getItem('ecommerceState')
+  if (retrievedState === null){
+    retrievedState = {}
+  }
+  retrievedState = JSON.parse(retrievedState);
+} catch (err){
+  retrievedState = {}
+}
 
 const store = createStore(
     reducers,
-    applyMiddleware(thunk)
+    retrievedState,
+    applyMiddleware(thunk, persistDataLocally)
 );
 
 
