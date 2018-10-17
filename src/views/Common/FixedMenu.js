@@ -8,6 +8,7 @@ import {
   Menu,
   Sidebar,
   Responsive,
+  Grid
 } from "semantic-ui-react";
 
 import CartLink from './CartLink'
@@ -35,7 +36,7 @@ const NavBarMobile = ({
       onClick={onPusherClick}
       style={{ minHeight: "10vh" }}
     >
-      <Menu fixed="top" secondary>
+      <Menu secondary>
         <Menu.Item>
           <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
         </Menu.Item>
@@ -46,6 +47,11 @@ const NavBarMobile = ({
           {_.map(rightItems, item => <Menu.Item {...item} />)}
         </Menu.Menu>*/}
         {rightItems}
+         <Menu.Menu position="right">
+           <Menu.Item name='cart'>
+             <CartLink responsive='mobile'/>
+           </Menu.Item>
+         </Menu.Menu>
       </Menu>
       {children}
     </Sidebar.Pusher>
@@ -53,16 +59,32 @@ const NavBarMobile = ({
 );
 
 const NavBarDesktop = ({ leftItems, rightItems }) => (
-  <Menu fixed="top" secondary>
-    <Menu.Item>
-      <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
-    </Menu.Item>
-    {_.map(leftItems, item => <Menu.Item {...item} />)}
-    {/*<Menu.Menu position="right">
-      {_.map(rightItems, item => <Menu.Item {...item} />)}
-    </Menu.Menu>*/}
-    {rightItems}
-  </Menu>
+  
+    <Grid columns={3}>
+
+        <Grid.Column>
+        <Menu secondary>
+          {_.map(leftItems, item => <Menu.Item {...item} />)}
+          </Menu>
+        </Grid.Column>
+        <Grid.Column>
+          
+            <Image centered size="mini" src="https://react.semantic-ui.com/logo.png" />
+          
+        </Grid.Column>
+      {/*<Menu.Menu position="right">
+        {_.map(rightItems, item => <Menu.Item {...item} />)}
+      </Menu.Menu>*/}
+      <Grid.Column>
+      <Menu secondary>
+        <Menu.Menu position="right">
+        {_.map(rightItems, item => <Menu.Item {...item} />)}
+        </Menu.Menu>
+        </Menu>
+      </Grid.Column>
+
+    </Grid>
+  
 );
 
 const NavBarChildren = ({ children }) => (
@@ -112,12 +134,12 @@ const leftItems = [
   { as: "a", content: "Home", key: "home" },
   { as: "a", content: "Users", key: "users" }
 ];
-// const rightItems = [
-//   { as: "a", content: "Login", key: "login" },
-//   { as: "a", content: "Register", key: "register" }
-// ];
+const rightItems = [
+  { as: "a", content: "Login", key: "login" },
+  { as: "a", content: "Register", key: "register" }
+];
 
-const rightItems = null
+//const rightItems = null
     // <Menu.Menu position="right">
     //   <Menu.Item name='cart'>
     //     <CartLink />

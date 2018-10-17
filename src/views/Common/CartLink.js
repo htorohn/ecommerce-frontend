@@ -12,13 +12,14 @@ class CartLink extends Component {
     render() {
         
         const { itemCount } = this.props.cart
+        const right = this.props.responsive==='computer'?25:15
         return(
             <Link to='/cart'>
                 <div>
                     {
                         itemCount > 0 
                         ?
-                        <div style={{ position: 'absolute', right: 25, top: 0, justifyContent: 'center', alignItems: 'center' }}>
+                        <div style={{ position: 'absolute', right: right, top: 0, justifyContent: 'center', alignItems: 'center' }}>
                             <h4 style={{ color: 'black' }}>{itemCount}</h4>
                         </div>
                         : null
