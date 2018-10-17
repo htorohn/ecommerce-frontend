@@ -171,6 +171,13 @@ class MainProduct extends Component {
         //Cantidad de items disponibles
         let qty_picker
         let disabled
+        let cantidad = []
+        for (let i = 0; i < selected_variant.total_on_hand; i++){
+            cantidad.push({
+                text: i+1, 
+                value: i+1
+            })
+        }
         if (selected_variant.total_on_hand === 0){
             disabled = true
             qty_picker = 
@@ -180,12 +187,18 @@ class MainProduct extends Component {
         }else{
             disabled = false
             qty_picker = 
-                <NumericInput 
-                    value={this.state.qty} 
-                    onChange={(num)=>{this.setState({qty: num})}} 
-                    step={1}
-                    min={1}
-                    max={selected_variant.total_on_hand}
+                // <NumericInput 
+                //     value={this.state.qty} 
+                //     onChange={(num)=>{this.setState({qty: num})}} 
+                //     step={1}
+                //     min={1}
+                //     max={selected_variant.total_on_hand}
+                // />
+                <Dropdown
+                    options={cantidad}
+                    defaultValue={cantidad[0].value}
+                    //placeholder='I change value on keyboard navigation'
+                    onChange={(e, { value }) => this.setState({ qty: value })}
                 />
         }
         
@@ -223,6 +236,7 @@ class MainProduct extends Component {
                                         <Grid.Column style={{textAlign: 'left'}}>
                                             <h4>Cantidad:</h4>
                                             {qty_picker}
+                                            
                                         </Grid.Column>
                                         <Grid.Column style={{textAlign: 'left'}}>
                                             {variant_picker}

@@ -17,6 +17,7 @@ class Cart extends Component {
                 <Header />
                     <Container style={{ padding: '2em 2em' }} textAlign='center' vertical>
                         {/*<PageBreadcrumb textAlign='left'/>*/}
+                        <h1 style={{textAlign: 'left'}}>Carrito de Compra</h1>
                         <ItemList items={cart.line_items} />
                         
                     </Container>

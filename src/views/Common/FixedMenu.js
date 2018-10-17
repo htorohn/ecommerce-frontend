@@ -117,12 +117,12 @@ const leftItems = [
 //   { as: "a", content: "Register", key: "register" }
 // ];
 
-const rightItems = 
-    <Menu.Menu position="right">
-      <Menu.Item name='cart'>
-        <CartLink />
-      </Menu.Item>
-    </Menu.Menu>
+const rightItems = null
+    // <Menu.Menu position="right">
+    //   <Menu.Item name='cart'>
+    //     <CartLink />
+    //   </Menu.Item>
+    // </Menu.Menu>
 
 const FixedMenu = () => (
   <NavBar leftItems={leftItems} rightItems={rightItems} />
