@@ -7,7 +7,7 @@ const persistDataLocally = store => next => action => {
         "order": store.getState().order
     }
   localStorage['ecommerceState'] = JSON.stringify(data)
-  console.log('Local Storage:', localStorage['ecommerceState'])
+  //console.log('Local Storage:', localStorage['ecommerceState'])
 }
 
 export default persistDataLocally

@@ -1,13 +1,16 @@
 import _ from "lodash";
-import React, { Component } from "react";
+import React, { Component } from "react"
+import { Link } from 'react-router-dom'
 import {
   Container,
   Icon,
   Image,
   Menu,
   Sidebar,
-  Responsive
+  Responsive,
 } from "semantic-ui-react";
+
+import CartLink from './CartLink'
 
 const NavBarMobile = ({
   children,
@@ -32,16 +35,17 @@ const NavBarMobile = ({
       onClick={onPusherClick}
       style={{ minHeight: "10vh" }}
     >
-      <Menu fixed="top" inverted>
+      <Menu fixed="top" secondary>
         <Menu.Item>
           <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
         </Menu.Item>
         <Menu.Item onClick={onToggle}>
           <Icon name="sidebar" />
         </Menu.Item>
-        <Menu.Menu position="right">
+        {/*<Menu.Menu position="right">
           {_.map(rightItems, item => <Menu.Item {...item} />)}
-        </Menu.Menu>
+        </Menu.Menu>*/}
+        {rightItems}
       </Menu>
       {children}
     </Sidebar.Pusher>
@@ -49,14 +53,15 @@ const NavBarMobile = ({
 );
 
 const NavBarDesktop = ({ leftItems, rightItems }) => (
-  <Menu fixed="top" inverted>
+  <Menu fixed="top" secondary>
     <Menu.Item>
       <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
     </Menu.Item>
     {_.map(leftItems, item => <Menu.Item {...item} />)}
-    <Menu.Menu position="right">
+    {/*<Menu.Menu position="right">
       {_.map(rightItems, item => <Menu.Item {...item} />)}
-    </Menu.Menu>
+    </Menu.Menu>*/}
+    {rightItems}
   </Menu>
 );
 
@@ -107,10 +112,17 @@ const leftItems = [
   { as: "a", content: "Home", key: "home" },
   { as: "a", content: "Users", key: "users" }
 ];
-const rightItems = [
-  { as: "a", content: "Login", key: "login" },
-  { as: "a", content: "Register", key: "register" }
-];
+// const rightItems = [
+//   { as: "a", content: "Login", key: "login" },
+//   { as: "a", content: "Register", key: "register" }
+// ];
+
+const rightItems = 
+    <Menu.Menu position="right">
+      <Menu.Item name='cart'>
+        <CartLink />
+      </Menu.Item>
+    </Menu.Menu>
 
 const FixedMenu = () => (
   <NavBar leftItems={leftItems} rightItems={rightItems} />
