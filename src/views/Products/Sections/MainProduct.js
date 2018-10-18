@@ -19,6 +19,7 @@ import {
 import NumericInput from 'react-numeric-input'
 
 import { setMainImage, addProductToCart } from '../../../redux/actions'
+import { orderApi } from '../../../api/orderApi'
 import ProductImages from './ProductImages'
 
 
@@ -169,16 +170,30 @@ class MainProduct extends Component {
         //console.log("Thumbnails", thumbnailImages)
         
         //Cantidad de items disponibles
+        //Validamos primero si el item ya esta en el carrito y restamos la cantidad que ya se tiene en el carrito
+        let line_item = {
+            variant_id: selected_variant.id,
+            quantity: 0
+        }
+        let available_quantity = selected_variant.total_on_hand
+        console.log("available quantity 1", available_quantity)
+        const existe = orderApi.lineItemExists(line_item, this.props.cart.line_items)
+        console.log("existe", existe)
+        if ( existe !== undefined ){
+            available_quantity = available_quantity - existe.quantity
+        }
+        
+        
         let qty_picker
         let disabled
         let cantidad = []
-        for (let i = 0; i < selected_variant.total_on_hand; i++){
+        for (let i = 0; i < available_quantity; i++){
             cantidad.push({
                 text: i+1, 
                 value: i+1
             })
         }
-        if (selected_variant.total_on_hand === 0){
+        if (available_quantity === 0){
             disabled = true
             qty_picker = 
                     <Label style={{ color: 'red' }}>
@@ -187,13 +202,6 @@ class MainProduct extends Component {
         }else{
             disabled = false
             qty_picker = 
-                // <NumericInput 
-                //     value={this.state.qty} 
-                //     onChange={(num)=>{this.setState({qty: num})}} 
-                //     step={1}
-                //     min={1}
-                //     max={selected_variant.total_on_hand}
-                // />
                 <Dropdown
                     options={cantidad}
                     defaultValue={cantidad[0].value}
@@ -202,6 +210,7 @@ class MainProduct extends Component {
                 />
         }
         
+        /////////////////////////////////
         return (
             <div>
                 <Grid container columns={2} stackable>
@@ -256,7 +265,7 @@ class MainProduct extends Component {
                                                 icon='shop'
                                                 content='Agregar al Carrito'
                                                 style={ {marginLeft: 5, marginRight: 5} }
-                                                disabled={ selected_variant.total_on_hand === 0?true:false }//|| this.props.state.cart.addingProductToCart?true:false }
+                                                disabled={ available_quantity === 0?true:false }//|| this.props.state.cart.addingProductToCart?true:false }
                                                 onClick={() => {
                                                     this.handleButtonPress(selected_variant);
                                                   }}

@@ -46,7 +46,7 @@ const NavBarMobile = ({
         {/*<Menu.Menu position="right">
           {_.map(rightItems, item => <Menu.Item {...item} />)}
         </Menu.Menu>*/}
-        {rightItems}
+        {/*rightItems*/}
          <Menu.Menu position="right">
            <Menu.Item name='cart'>
              <CartLink responsive='mobile'/>
@@ -131,7 +131,7 @@ class NavBar extends Component {
 }
 
 const leftItems = [
-  { as: "a", content: "Home", key: "home" },
+  { as: "a", href: "/", content: "Home", key: "home" },
   { as: "a", content: "Users", key: "users" }
 ];
 const rightItems = [
