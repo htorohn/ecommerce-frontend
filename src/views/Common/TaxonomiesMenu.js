@@ -12,26 +12,6 @@ import {
 } from 'semantic-ui-react'
 
 
-// const menuItem = (item) => {
-//     return (
-//         <div>
-//             Welcome to level 2
-//             <Accordion.Accordion panels={level2Panels} />
-//         </div>
-//     )
-// }
-// const subMenu = (menu) => {
-//     const items = [
-//       { key: 'panel-2a', title: 'Level 2A', content: 'Level 2A Contents' },
-//       { key: 'panel-2b', title: 'Level 2B', content: 'Level 2B Contents' },
-//     ]
-
-//     return (  
-//         <div>
-//             <Accordion.Accordion panels={level2Panels} />
-//         </div>
-//     )
-// }
 
 class TaxonomiesMenu extends Component {
     
@@ -44,35 +24,35 @@ class TaxonomiesMenu extends Component {
     }
     
     _renderMenuItem(item, key) {
-        //console.log("item", item)
+        console.log("item", item)
         const { activeItem } = this.state
-        if (item.taxons.length === 0){
+        //if (item.relationships.children.data.length === 0){
             return (
                 <Menu.Item
-                  name={item.permalink}
+                  name={item.attributes.permalink}
                   as='a'
-                  href={'/shop/' + item.permalink}
-                  active={activeItem === item.permalink}
+                  href={'/shop/' + item.attributes.permalink}
+                  active={activeItem === item.attributes.permalink}
                   onClick={this.handleItemClick}
                 >
-                {'- ' + item.name}
+                {'- ' + item.attributes.name}
                 </Menu.Item>
             )
-        }
+        //}
         
-        return(
-            <Menu.Item>
-                <Menu.Header>{item.name}</Menu.Header>
-                <Menu.Menu>
-                {
-                    item.taxons.map((taxon, key) => {
-                        //console.log("taxon", taxon)
-                        return(this._renderMenuItem(taxon, item.id))
-                    })
-                }
-                </Menu.Menu>
-            </Menu.Item>
-        )
+        // return(
+        //     <Menu.Item>
+        //         <Menu.Header>{item.attributes.name}</Menu.Header>
+        //         <Menu.Menu>
+        //         {
+        //             item.relationships.children.data.map((taxon, key) => {
+        //                 //console.log("taxon", taxon)
+        //                 return(this._renderMenuItem(taxon, item.id))
+        //             })
+        //         }
+        //         </Menu.Menu>
+        //     </Menu.Item>
+        // )
     }
     
     
@@ -89,10 +69,10 @@ class TaxonomiesMenu extends Component {
                 </Container>
             )
         }
-        var taxons = taxonomies.taxonomies.taxons.filter(taxon => {
-          return taxon.parent_id === null
+        var taxons = taxonomies.taxonomies.data.filter(taxon => {
+          return taxon.attributes.is_child == false
         })
-        //console.log("taxon menu", taxons)
+        console.log("taxon menu", taxons)
         
         const { activeIndex } = this.state
         return(

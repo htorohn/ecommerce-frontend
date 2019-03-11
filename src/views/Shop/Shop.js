@@ -43,8 +43,8 @@ class Shop extends React.Component {
                 </div>
             )   
         }
-        
-        const current_taxon = taxonomies.taxonomies.taxons.find((taxon) => taxon.permalink === this.props.match.params.taxon)
+        console.log("taxonomies", taxonomies)
+        const current_taxon = taxonomies.taxonomies.data.find((taxon) => taxon.attributes.permalink === this.props.match.params.taxon)
         console.log("current taxon", current_taxon)
         
         return(
@@ -52,8 +52,8 @@ class Shop extends React.Component {
                 <Header />
                 <Container style={{ padding: '2em 2em' }} textAlign='center' vertical>
                     {/*<PageBreadcrumb textAlign='left'/>*/}
-                    <h1 style={{textAlign: 'left'}}>{current_taxon.name}</h1>
-                    <Divider style={{ padding: '3em 0em' }} />
+                    <h1 style={{textAlign: 'left'}}>{current_taxon.attributes.name}</h1>
+                    <div style={{ padding: '3em 0em' }} />
                     
                     <Grid container columns={2} stackable>
                         <Grid.Column width={3}>

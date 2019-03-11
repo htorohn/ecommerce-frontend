@@ -10,11 +10,11 @@ export const taxonomiesFetch = () => {
         dispatch({ type: TAXONOMIES_FETCHING });
         var request = require('superagent')
         request
-            .get(`${MAIN_URL}/api/v1/taxons`)
+            .get(`${MAIN_URL}/api/v2/storefront/taxons?include=image`)
             .set('Content-Type', 'application/json')
             .set('Access-Control-Allow-origin', '*')
             .then ((response) => {
-                //console.log('action', response)
+                console.log('action', response)
                 dispatch({ type: TAXONOMIES_FETCH_SUCCESS, payload: response.body });
             })
             .catch ((error) => {

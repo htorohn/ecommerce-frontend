@@ -8,7 +8,9 @@ import {
   Menu,
   Sidebar,
   Responsive,
-  Grid
+  Input,
+  Grid,
+  Divider
 } from "semantic-ui-react";
 
 import CartLink from './CartLink'
@@ -38,7 +40,7 @@ const NavBarMobile = ({
     >
       <Menu secondary>
         <Menu.Item>
-          <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
+          <Image size="mini" src="/images/logo.png" />
         </Menu.Item>
         <Menu.Item onClick={onToggle}>
           <Icon name="sidebar" />
@@ -53,6 +55,10 @@ const NavBarMobile = ({
            </Menu.Item>
          </Menu.Menu>
       </Menu>
+      <Container>
+          <Input transparent fluid icon={{ name: 'search', link: true }} placeholder='Buscar...' />
+      </Container>
+      <Divider />
       {children}
     </Sidebar.Pusher>
   </Sidebar.Pushable>
@@ -69,7 +75,7 @@ const NavBarDesktop = ({ leftItems, rightItems }) => (
         </Grid.Column>
         <Grid.Column>
           
-            <Image centered size="mini" src="https://react.semantic-ui.com/logo.png" />
+            <Image centered size="tiny" src="/images/logo.png" />
           
         </Grid.Column>
       {/*<Menu.Menu position="right">
@@ -123,7 +129,8 @@ class NavBar extends Component {
         </Responsive>
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           <NavBarDesktop leftItems={leftItems} rightItems={rightItems} />
-          <NavBarChildren>{children}</NavBarChildren>
+          {/*<NavBarChildren>{children}</NavBarChildren>*/}
+          <Divider />
         </Responsive>
       </div>
     );
@@ -135,7 +142,7 @@ const leftItems = [
   { as: "a", content: "Users", key: "users" }
 ];
 const rightItems = [
-  { as: "a", content: "Login", key: "login" },
+  { as: "a", content: "Login", key: "login", href: "/login" },
   { as: "a", content: "Register", key: "register" }
 ];
 

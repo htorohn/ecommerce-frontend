@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react'
 import NumericInput from 'react-numeric-input'
 
-import { updateProductOnCart } from '../../../redux/actions'
+import { updateProductOnCart, removeProductFromCart } from '../../../redux/actions'
 
 class ItemList extends React.Component{
     
@@ -42,6 +42,10 @@ class ItemList extends React.Component{
                 //   })
                 console.log("Carrito Actualizado")
             })
+    }
+    
+    handleRemoveItem(item) {
+        this.props.removeProductFromCart(item)
     }
     
     render() {
@@ -104,7 +108,7 @@ class ItemList extends React.Component{
                                                 : null
                                             }
                                             <Item.Extra>
-                                              <Icon link onClick={()=>{console.log("voy a borrar")}} color='red' name='trash alternate outline' />
+                                              <Icon link onClick={()=>{this.handleRemoveItem(item)}} color='red' name='trash alternate outline' />
                                             </Item.Extra>
                                         </Item.Content>
                                         
@@ -126,4 +130,4 @@ class ItemList extends React.Component{
     }
 }
 
-export default connect(null, { updateProductOnCart })(ItemList)
+export default connect(null, { updateProductOnCart, removeProductFromCart })(ItemList)

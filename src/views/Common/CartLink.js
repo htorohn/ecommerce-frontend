@@ -19,7 +19,7 @@ class CartLink extends Component {
                     {
                         itemCount > 0 
                         ?
-                        <div style={{ position: 'absolute', right: right, top: 0, justifyContent: 'center', alignItems: 'center' }}>
+                        <div style={{ position: 'relative', right: -20, top: 5, justifyContent: 'center', alignItems: 'center' }}>
                             <h4 style={{ color: 'black' }}>{itemCount}</h4>
                         </div>
                         : null

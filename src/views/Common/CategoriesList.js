@@ -3,6 +3,7 @@ import TextTruncate from 'react-text-truncate'
 
 // react component for creating beautiful carousel
 import Slider from "react-slick"
+import { MAIN_URL } from '../../constants/Config'
 
 
 import {
@@ -13,28 +14,32 @@ import {
 
 const productsItems =  (categories) => {
      console.log("props", categories)
-    if (categories.taxons === 0) {
+    if (categories.data === 0) {
     } else{
       return (
-        categories.taxons.map((taxon, key) => {
-          if(taxon.taxons.length === 0){
+        categories.data.map((taxon, key) => {
+          //console.log("taxon", taxon)
+          if(taxon.attributes.depth == 1){
+            let taxonImageURL
+            if (taxon.relationships.image.data != null){
+              const current_image = categories.included.find((image) => image.id === taxon.relationships.image.data.id)
+              console.log("current image", current_image)
+              taxonImageURL = MAIN_URL + current_image.attributes.styles[1].url
+              console.log("image URL", taxonImageURL)
+            }
             return (
-                <Container href={"/shop/" + taxon.permalink}>
+                <Container href={"/shop/" + taxon.attributes.permalink}>
                   {/*<Image src={taxon.master.images[0].product_url} centered wrapped style={{height: 250}}/>*/}
                   <Header>
                     <h4>
                         <TextTruncate
                             line={1}
                             truncateText="…"
-                            text={taxon.name}
+                            text={taxon.attributes.name}
                         />
                       </h4>
                   </Header>
-                  {/*<Header style={{ padding: '0em 0em 2em 0em' }}>
-                    <h3>
-                      {taxon.master.display_price}
-                    </h3>
-                  </Header>*/}
+                  <Image src={taxonImageURL} centered wrapped/>
                 </Container>
               )
           }

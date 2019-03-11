@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Grid, Responsive, Input } from 'semantic-ui-react'
+import { Container, Grid, Responsive, Input, Divider } from 'semantic-ui-react'
 import FixedMenu from './FixedMenu'
 
 import CartLink from './CartLink'
@@ -17,7 +17,9 @@ export default class Header extends Component {
                 
                 <Responsive {...Responsive.onlyMobile}>
                     <FixedMenu />
+                    
                 </Responsive>
+                
                 <Responsive minWidth={Responsive.onlyTablet.minWidth}>
                     <Container style={{paddingTop: 20, alignItems: 'right'}}>
                         <Grid>
@@ -30,7 +32,6 @@ export default class Header extends Component {
                         </Grid>
                     </Container>
                     <FixedMenu />
-                    
                 </Responsive>
                 
                 {/* <Breadcrum /> */}
