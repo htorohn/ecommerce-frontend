@@ -69,6 +69,7 @@ const NavBarDesktop = ({ leftItems, rightItems }) => (
     <Grid columns={3}>
 
         <Grid.Column>
+        
         <Menu secondary>
           {_.map(leftItems, item => <Menu.Item {...item} />)}
           </Menu>
@@ -81,7 +82,7 @@ const NavBarDesktop = ({ leftItems, rightItems }) => (
       {/*<Menu.Menu position="right">
         {_.map(rightItems, item => <Menu.Item {...item} />)}
       </Menu.Menu>*/}
-      <Grid.Column>
+      <Grid.Column >
       <Menu secondary>
         <Menu.Menu position="right">
         {_.map(rightItems, item => <Menu.Item {...item} />)}

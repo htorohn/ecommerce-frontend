@@ -24,12 +24,13 @@ const productsItems =  (categories) => {
             if (taxon.relationships.image.data != null){
               const current_image = categories.included.find((image) => image.id === taxon.relationships.image.data.id)
               console.log("current image", current_image)
-              taxonImageURL = MAIN_URL + current_image.attributes.styles[1].url
+              taxonImageURL = MAIN_URL + current_image.attributes.styles[3].url
               console.log("image URL", taxonImageURL)
-            }
-            return (
+              return (
                 <Container href={"/shop/" + taxon.attributes.permalink}>
                   {/*<Image src={taxon.master.images[0].product_url} centered wrapped style={{height: 250}}/>*/}
+                  
+                  <Image src={taxonImageURL} wrapped style={{height: 200}}/>
                   <Header>
                     <h4>
                         <TextTruncate
@@ -39,9 +40,10 @@ const productsItems =  (categories) => {
                         />
                       </h4>
                   </Header>
-                  <Image src={taxonImageURL} centered wrapped/>
                 </Container>
               )
+            }
+            return null
           }
         })
       )
